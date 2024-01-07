@@ -9,3 +9,8 @@ export const filterState = atom({
   key: "filterState",
   default: "all",
 });
+
+export const sortState = atom({
+  key: "sortState",
+  default: "created",
+});

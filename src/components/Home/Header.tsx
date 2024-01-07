@@ -1,9 +1,11 @@
 import { LeftArrow, RightArrow } from "icons";
-import { useSetRecoilState } from "recoil";
-import { modalContentState } from "recoil/atoms";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { modalContentState, sortState } from "recoil/atoms";
 
 const Header = () => {
   const setModalContent = useSetRecoilState(modalContentState);
+  const sort = useRecoilValue(sortState);
+
   return (
     <>
       <p className="pb-3 text-[#7B848C] font-bold">최진영</p>
@@ -21,10 +23,14 @@ const Header = () => {
         </button>
         <button
           type="button"
-          onClick={() => setModalContent("Filter")}
+          onClick={() => setModalContent("Sort")}
           className="flex justify-center items-center gap-x-0.5 text-[#5A6066]"
         >
-          <p className="font-medium text-sm">작성일 순</p>
+          <p className="font-medium text-sm">
+            {sort === "created" && "작성일 순"}
+            {sort === "updated" && "수정일 순"}
+            {sort === "comments" && "코멘트 순"}
+          </p>
           <RightArrow />
         </button>
       </div>

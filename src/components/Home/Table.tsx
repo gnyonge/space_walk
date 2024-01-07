@@ -1,22 +1,23 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
-import { filterState } from "recoil/atoms";
+import { filterState, sortState } from "recoil/atoms";
 import { getIssues } from "utils/api";
 import { formatDate } from "utils/functions";
 
 const Table = () => {
   const filter = useRecoilValue(filterState);
+  const sort = useRecoilValue(sortState);
   const [page, setPage] = useState(1);
 
   const { data: issues, isLoading } = useQuery({
-    queryKey: ["issues", page, filter],
-    queryFn: () => getIssues(page, filter),
+    queryKey: ["issues", page, filter, sort],
+    queryFn: () => getIssues(page, filter, sort),
   });
 
   useEffect(() => {
     setPage(1);
-  }, [filter]);
+  }, [filter, sort]);
 
   if (isLoading) return <p className="text-center">Loading...</p>;
 

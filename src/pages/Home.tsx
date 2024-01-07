@@ -1,6 +1,4 @@
-import Filter from "components/Home/Filter";
-import Header from "components/Home/Header";
-import Table from "components/Home/Table";
+import { Filter, Header, Sort, Table } from "components/Home";
 import Modal from "components/Modal";
 import { useRecoilValue } from "recoil";
 import { modalContentState } from "recoil/atoms";
@@ -18,7 +16,7 @@ const Home = () => {
       </div>
       <Modal>
         {modalContent === "Filter" && <Filter />}
-        {modalContent === "Sort" && <Filter />}
+        {modalContent === "Sort" && <Sort />}
       </Modal>
     </div>
   );
