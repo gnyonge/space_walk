@@ -1,13 +1,16 @@
-import Modal from "components/Modal";
+import Header from "components/Home/Header";
+import Table from "components/Home/Table";
 
 const Home = () => {
   return (
-    <h1>
-      This is home
-      <Modal>
-        <div>test</div>
-      </Modal>
-    </h1>
+    <div className="flex justify-center">
+      <div className="px-[60px] py-[72px]">
+        <div className="px-5">
+          <Header />
+          <Table />
+        </div>
+      </div>
+    </div>
   );
 };
 
