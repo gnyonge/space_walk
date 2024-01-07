@@ -1,12 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
+import { filterState } from "recoil/atoms";
 import { getIssues } from "utils/api";
 import { formatDate } from "utils/functions";
 
 const Table = () => {
+  const filter = useRecoilValue(filterState);
+  const [page, setPage] = useState(1);
+
   const { data: issues, isLoading } = useQuery({
-    queryKey: ["issues"],
-    queryFn: () => getIssues(1),
+    queryKey: ["issues", page, filter],
+    queryFn: () => getIssues(page, filter),
   });
+
+  useEffect(() => {
+    setPage(1);
+  }, [filter]);
 
   if (isLoading) return <p className="text-center">Loading...</p>;
 
@@ -15,7 +25,7 @@ const Table = () => {
       <thead>
         <tr className="h-8 bg-[#F5F8FA] text-sm text-[#5A6066] font-medium whitespace-nowrap">
           <th className="text-start rounded-l-lg py-1.5 pl-3 pr-5">
-            <p>번호</p>
+            <p onClick={() => setPage((prev) => prev + 1)}>번호</p>
           </th>
           <th className="text-start pr-5">
             <p>제목</p>
